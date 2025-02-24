@@ -1,3 +1,7 @@
+const startGameBtn = document.getElementById("startGameBtn");
+const backBtn = document.getElementById("backBtn");
+const gamePage = document.getElementById("gamePage");
+const homePage = document.getElementById("homePage");
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const statusText = document.getElementById("status");
@@ -12,6 +16,18 @@ canvas.height = 300;
 const cellSize = 100;
 
 let board, currentPlayer, gameActive, blinkInterval, playAgainstAI;
+
+
+startGameBtn.addEventListener("click", () => {
+    homePage.style.display = "none";
+    gamePage.style.display = "block";
+    initializeGame();
+});
+
+backBtn.addEventListener("click", () => {
+    gamePage.style.display = "none";
+    homePage.style.display = "block";
+});
 
 function initializeGame() {
     board = Array(3).fill(null).map(() => Array(3).fill(""));
@@ -50,12 +66,12 @@ function drawBoard() {
 
     for (let i = 1; i < 3; i++) {
         ctx.beginPath();
-        ctx.moveTo(i * cellSize, 0);
-        ctx.lineTo(i * cellSize, canvas.height);
+        ctx.moveTo(i * 100, 0);
+        ctx.lineTo(i * 100, canvas.height);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(0, i * cellSize);
-        ctx.lineTo(canvas.width, i * cellSize);
+        ctx.moveTo(0, i * 100);
+        ctx.lineTo(canvas.width, i * 100);
         ctx.stroke();
     }
     drawMoves();
@@ -72,7 +88,7 @@ function drawMoves() {
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = symbol === "X" ? "#ff007f" : "#00d4ff";
                 ctx.fillStyle = symbol === "X" ? "#ff007f" : "#00d4ff";
-                ctx.fillText(symbol, col * cellSize + cellSize / 2, row * cellSize + cellSize / 2);
+                ctx.fillText(symbol, col * 100 + 50, row * 100 + 50);
             }
         }
     }
